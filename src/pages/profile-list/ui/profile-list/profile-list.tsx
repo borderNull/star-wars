@@ -69,8 +69,6 @@ export const ProfileList = () => {
     return <ErrorOffline />
   }
 
-  console.log('`${import.meta.env.BASE_URL}', import.meta.env.BASE_URL)
-
   return (
 
     <ProfileListWrap>
