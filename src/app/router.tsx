@@ -6,7 +6,7 @@ import ErrorBoundary from '../shared/list-router-error'
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: `${import.meta.env.BASE_URL}`,
     element: <ProfileList />,
     errorElement: <ErrorBoundary />
   },
