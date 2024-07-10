@@ -1,0 +1,24 @@
+:root {
+  line-height: 1.5;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+#root {
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-height: 100vh;
+  justify-content: center;
+  padding: 0 20px;
+  @media (max-width: 400px) {
+    padding: 0 10px;
+  }
+}
