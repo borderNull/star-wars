@@ -73,7 +73,7 @@ export const ProfilePage = () => {
   };
 
   const handleNavigateToList = () => {
-    navigate("/");
+    navigate(`${import.meta.env.BASE_URL}`);
   };
 
 
