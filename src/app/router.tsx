@@ -11,7 +11,7 @@ export const router = createBrowserRouter([
     errorElement: <ErrorBoundary />
   },
   {
-    path: `${import.meta.env.BASE_URL}/profile/:profileId`,
+    path: `/${import.meta.env.BASE_URL}/profile/:profileId`,
     element: <ProfilePage />,
     errorElement: <ErrorBoundary />
   }
