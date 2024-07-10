@@ -15,7 +15,7 @@ export default defineConfig(({ command }) => {
   };
 
   if (command !== "serve") {
-    config.base = "/star-wars/";
+    config.base = "/star-wars";
   }
 
   return config;
