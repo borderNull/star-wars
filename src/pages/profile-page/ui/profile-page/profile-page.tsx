@@ -17,6 +17,7 @@ import Spinner from "../../../../shared/spinner";
 
 
 import { api } from "../../api";
+import { ROUTES } from '../../../../app/routes'
 
 import { ValueTypes } from "../../../../types";
 
@@ -73,7 +74,7 @@ export const ProfilePage = () => {
   };
 
   const handleNavigateToList = () => {
-    navigate(`${import.meta.env.BASE_URL}`);
+    navigate(ROUTES.LIST);
   };
 
 

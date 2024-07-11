@@ -2,6 +2,7 @@
 import { useRouteError, Link } from 'react-router-dom';
 import Button from '@mui/material/Button'
 import { ErrorWrap, ErrorText } from './styles';
+import { ROUTES } from '../app/routes';
 
 interface IError {
   error?: {
@@ -16,7 +17,7 @@ function ErrorBoundary() {
   return (
     <ErrorWrap>
       <ErrorText variant='h2'>{error?.error?.message}</ErrorText>
-      <Link to={'/'}>
+      <Link to={ROUTES.LIST}>
         <Button variant='contained'>Go to List</Button>
       </Link>
     </ErrorWrap>

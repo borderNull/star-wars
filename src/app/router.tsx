@@ -20,6 +20,8 @@ export const router = createBrowserRouter([
     },
     errorElement: <ErrorBoundary />
   }
-]);
+], {
+  basename: '/star-wars/'
+});
 
 export default router;
