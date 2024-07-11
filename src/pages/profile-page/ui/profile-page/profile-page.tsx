@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { DateTime } from "luxon";
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { ErrorBoundary } from "react-error-boundary";
 import * as yup from "yup"
 
 import Button from "@mui/material/Button";
@@ -12,13 +13,11 @@ import ClearIcon from "@mui/icons-material/Clear";
 import EditIcon from "@mui/icons-material/Edit";
 
 import { ProfileDetails } from "../profile-details";
+import { api } from "../../api";
+import { Fallback } from "../../../../shared/fallback-error";
 import { ErrorOffline } from '../../../../shared/offline-error';
 import Spinner from "../../../../shared/spinner";
-
-
-import { api } from "../../api";
 import { ROUTES } from '../../../../app/routes'
-
 import { ValueTypes } from "../../../../types";
 
 import {
@@ -59,7 +58,7 @@ export const ProfilePage = () => {
   })
 
   const onSubmit = (data: object) => {
-    setPerson({ ...data, edited: DateTime.now() })
+    setPerson({ ...data, edited: DateTime.now().toISO() })
     setEditMode(false)
   }
 
@@ -92,54 +91,56 @@ export const ProfilePage = () => {
   }
 
   return (
-    <PersonCardWrap>
-      <PersonPaper elevation={3}>
-        <PersonAction>
-          <ProfileBackButton
-            variant="outlined"
-            startIcon={<ArrowBackIcon />}
-            onClick={handleNavigateToList}
-          >
-            back
-          </ProfileBackButton>
-          <PersonActionButtons>
-            {!editMode && (<Button
+    <ErrorBoundary FallbackComponent={Fallback}>
+      <PersonCardWrap>
+        <PersonPaper elevation={3}>
+          <PersonAction>
+            <ProfileBackButton
               variant="outlined"
-              startIcon={<EditIcon />}
-              onClick={toggleEditPerson}
+              startIcon={<ArrowBackIcon />}
+              onClick={handleNavigateToList}
             >
-              Edit profile
-            </Button>)}
-            {editMode && (
-              <Button
+              back
+            </ProfileBackButton>
+            <PersonActionButtons>
+              {!editMode && (<Button
                 variant="outlined"
-                startIcon={<ClearIcon />}
-                onClick={handleCancelEditPerson}
+                startIcon={<EditIcon />}
+                onClick={toggleEditPerson}
               >
-                Cancel
-              </Button>
-            )}
-          </PersonActionButtons>
-        </PersonAction>
-        <PersonForm onSubmit={handleSubmit(onSubmit)}>
-          {editMode && <SubmitForm variant="contained" type="submit">Save</SubmitForm>}
-          <PersonDetails>
-            {!!person && Object.entries(person).map((entry) => {
-              const [key, value] = entry;
-              return (
-                <ProfileDetails
-                  key={`${key}_first_level`}
-                  name={key}
-                  value={value as ValueTypes}
-                  editMode={editMode}
-                  control={control}
-                />
-              );
-            })}
-          </PersonDetails>
-        </PersonForm>
-      </PersonPaper>
-    </PersonCardWrap>
+                Edit profile
+              </Button>)}
+              {editMode && (
+                <Button
+                  variant="outlined"
+                  startIcon={<ClearIcon />}
+                  onClick={handleCancelEditPerson}
+                >
+                  Cancel
+                </Button>
+              )}
+            </PersonActionButtons>
+          </PersonAction>
+          <PersonForm onSubmit={handleSubmit(onSubmit)}>
+            {editMode && <SubmitForm variant="contained" type="submit">Save</SubmitForm>}
+            <PersonDetails>
+              {!!person && Object.entries(person).map((entry) => {
+                const [key, value] = entry;
+                return (
+                  <ProfileDetails
+                    key={`${key}_first_level`}
+                    name={key}
+                    value={value as ValueTypes}
+                    editMode={editMode}
+                    control={control}
+                  />
+                );
+              })}
+            </PersonDetails>
+          </PersonForm>
+        </PersonPaper>
+      </PersonCardWrap>
+    </ErrorBoundary>
   );
 };
 

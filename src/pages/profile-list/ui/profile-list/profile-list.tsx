@@ -1,6 +1,7 @@
 import { useState, ChangeEvent, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
+import { ErrorBoundary } from "react-error-boundary";
 
 import Pagination from "@mui/material/Pagination";
 
@@ -10,6 +11,7 @@ import { ProfileListSearch } from "../profile-list-search";
 import { api } from "../../api";
 import { DEFAULT_PAGE_SIZE } from "../../constants";
 import { ErrorOffline } from '../../../../shared/offline-error';
+import { Fallback } from "../../../../shared/fallback-error";
 import useDebounce from "../../../../hooks/useDebounce";
 
 import {
@@ -70,14 +72,15 @@ export const ProfileList = () => {
   }
 
   return (
-
-    <ProfileListWrap>
-      <ProfileListSearch isFetching={isFetching} onSearch={handleSearch} searchInput={searchInput} onClear={clearSearch} />
-      <ProfileListContent isFetching={isFetching} results={results} clearSearch={clearSearch} />
-      {pageCount > 1 && (
-        <Pagination count={pageCount} page={+page} onChange={handlePageChange} />
-      )}
-    </ProfileListWrap>
+    <ErrorBoundary FallbackComponent={Fallback}>
+      <ProfileListWrap>
+        <ProfileListSearch isFetching={isFetching} onSearch={handleSearch} searchInput={searchInput} onClear={clearSearch} />
+        <ProfileListContent isFetching={isFetching} results={results} clearSearch={clearSearch} />
+        {pageCount > 1 && (
+          <Pagination count={pageCount} page={+page} onChange={handlePageChange} />
+        )}
+      </ProfileListWrap>
+    </ErrorBoundary>
 
   );
 };

@@ -48,7 +48,6 @@ export const ProfileDetails = ({
   };
 
   const renderDetailsContent = (name: string, value: ValueTypes) => {
-
     if (!arrayOrUrl(value)) {
       if (editMode && !READ_ONLY_FIELDS.includes(name)) {
         return (
@@ -99,7 +98,7 @@ export const ProfileDetails = ({
     });
   };
 
-  if (PROPS_TO_EXCLUDE.includes(name) || !value?.length) return;
+  if (PROPS_TO_EXCLUDE.includes(name) || (!value?.length)) return;
 
   return (
     <PersonDetailItemWrap fullwidth={Number(arrayOrUrl(value))} >
