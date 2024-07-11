@@ -11,7 +11,7 @@ interface ProfileProps {
 export const ProfileListCard = ({ profileName, id }: ProfileProps) => {
   const navigate = useNavigate();
   const handleNavigateToProfile = () => {
-    navigate("profile/" + id);
+    navigate("/profile/" + id);
   };
   return (
     <ProfileCard>
