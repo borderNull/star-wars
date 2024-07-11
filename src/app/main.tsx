@@ -12,12 +12,13 @@ import { ROUTES } from "./routes";
 import { queryClient } from "./query-client";
 import { ErrorBoundary } from "react-error-boundary";
 
-const Fallback = ({ error, resetErrorBoundary }) => {
+const Fallback = ({ error, resetErrorBoundary }: { error: Error, resetErrorBoundary: () => void }) => {
   console.log("🚀 ~ Fallback ~ error:", error)
   // Call resetErrorBoundary() to reset the error boundary and retry the render.
   return (
     <div role="alert">
       <p>Something went wrong:</p>
+      <button onClick={resetErrorBoundary}></button>
       <pre style={{ color: "red" }}>{error.message}</pre>
       <Link to={ROUTES.LIST}>to list</Link>
     </div>
